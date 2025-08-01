@@ -64,9 +64,7 @@ pip install -r requirements.txt
 3. (Required for sentiment analysis in Lite Mode)
 
 ```
-bash
 python -m textblob.download_corpora
-
 ```
 
 
