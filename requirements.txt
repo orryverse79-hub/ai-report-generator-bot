@@ -1,0 +1,15 @@
+openai
+matplotlib
+reportlab
+pandas
+python-dotenv
+openpyxl
+PyPDF2
+streamlit
+PyMuPDF
+python-docx
+plotly
+textblob
+transformers
+torch
+

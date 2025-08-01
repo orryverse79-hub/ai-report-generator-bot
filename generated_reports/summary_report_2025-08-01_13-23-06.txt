@@ -1,0 +1,20 @@
+📄 PDF/Text File: User Prompt
+- Pages: 1
+- Sentiment: Neutral 😐 (Score: 0.0)
+- Classification: Legal (Confidence: 0.29)
+- Text Preview:
+analyze it efficeient
+
+
+
+📊 Excel File: Book 4.xlsx
+- Sheets: Sheet1
+- Columns: Date, Sales, Profit
+- Total Rows: 5
+- Sample Data:
+  • [Timestamp('2025-07-01 00:00:00'), 120, 25]
+  • [Timestamp('2025-07-02 00:00:00'), 150, 35]
+  • [Timestamp('2025-07-03 00:00:00'), 130, 30]
+  • [Timestamp('2025-07-04 00:00:00'), 170, 45]
+  • [Timestamp('2025-07-05 00:00:00'), 160, 40]
+
