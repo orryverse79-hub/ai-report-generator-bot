@@ -1,109 +1,139 @@
-# 📑 AI Report Generator Bot
+# 📄 AI Report Generator Bot
 
-An intelligent, GPU-accelerated Streamlit app that analyzes and summarizes documents using sentiment analysis, classification, automatic charting, and optional GPT-powered summarization.
-
---- 
-
-## 🚀 Features
-
-- 📁 **Multi-file Upload** — Supports PDF, DOCX, TXT, XLS, XLSX
-- 🧠 **Two Analysis Modes**:
-  - **Lite**: Uses TextBlob (fast and lightweight)
-  - **Advanced**: Uses HuggingFace Transformers with GPU (if available)
-- 📊 **Auto Charts** — Plots numeric Excel data using Plotly
-- 📋 **AI Analysis** — Sentiment detection & content classification
-- 🧠 **ChatGPT Summarization** — Optional GPT-3.5-based summaries
-- 💾 **Report Generator** — Auto-saves detailed reports
-- ⚡ **GPU Acceleration** — Automatically uses CUDA if available
+An intelligent Streamlit-based tool to auto-analyze and summarize uploaded documents like PDFs, Word files, Excel sheets, and plain text using classical and AI-powered techniques. Optionally integrates *ChatGPT (GPT-3.5 Turbo)* for smarter document summarization via a toggle switch.
 
 ---
 
-## 📦 Installation
+## 🚀 Features
 
-### 1. Clone the repository
+- 📥 Upload support for: .pdf, .docx, .txt, .xls, .xlsx
+- 📊 Auto-charting for numerical Excel data
+- 🔍 Sentiment and topic classification (Lite or Advanced)
+- 🧠 Optional ChatGPT integration via a toggle (requires your OpenAI API key)
+- 📁 Auto-saves report in generated_reports/
+- 📝 Clean and simple UI built with Streamlit
+- ⚙ Device-aware GPU/CPU setup (uses GPU if available)
+- ✅ Apache 2.0 licensed for open contribution
 
-```bash
-git clone https://github.com/your-username/ai-report-generator.git
-cd ai-report-generator
+---
+
+## 🧠 GPT Integration (Optional)
+
+Enable the "Use ChatGPT" checkbox in the app to use GPT-3.5 for summarization. To activate this:
+
+1. Open the file: 
+```
+modules/gpt_handler.py
 ```
 
-2. Install dependencies
+2. Replace the following line:
 
-```bash
+```python
+OPENAI_API_KEY = "REPLACE_ME_WITH_YOUR_API_KEY"
+```
+
+with your actual OpenAI API key:
+
+```
+OPENAI_API_KEY = "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+```
+
+⚠ GPT functionality will remain disabled unless you add your key.
+
+
+---
+
+🖥 How to Run
+
+1. Clone the repository:
+
+
+```
+git clone https://github.com/yourusername/ai-report-generator-bot.git
+cd ai-report-generator-bot
+```
+
+2. Install dependencies:
+
+
+```
 pip install -r requirements.txt
 ```
 
 
-3. Run the app
+3. (Required for sentiment analysis in Lite Mode)
 
-```bash
+```
+bash
+python -m textblob.download_corpora
+
+```
+
+
+4. Launch the app:
+
+
+```
 streamlit run main.py
 ```
 
 
-🧠 Enable GPT Summarization (Optional)
-Open the file:
 
-```bash
-modules/gpt_handler.py
-```
+---
 
-Replace this line:
+### Why it's needed:
 
-```python
-OPENAI_API_KEY = "REPLACE_ME_WITH_YOUR_API_KEY"
-with your actual OpenAI key:
-```
-
-```python
-OPENAI_API_KEY = "sk-xxxxxxxxxxxxxxxxxxxxxxx"
-```
-Launch the app and toggle the ✅ "Use ChatGPT for smarter summarization" option.
-
-❗ Note: GPT summarization won't work unless the API key is set.
+- Without this step, **TextBlob sentiment analysis will fail silently** or throw `LookupError` related to missing corpora.
+- It's not needed if GPT-only mode is used, but most users will try Lite mode first, so it's important.
 
 
+
+
+
+
+
+
+
+---
 
 📁 Project Structure
-```graphql
-.
-├── main.py                     # Streamlit application entry point
-├── README.md                   # This file
-├── requirements.txt            # Dependencies
-├── uploaded_files/             # Uploaded input files (auto-saved)
-├── generated_reports/          # Output summary reports
+```
+├── main.py
+├── requirements.txt
+├── README.md
+├── LICENSE
+├── generated_reports/
+├── uploaded_files/
 └── modules/
-    ├── file_handler.py         # Handles file parsing and type detection
-    ├── data_analyzer.py        # Sentiment & classification logic
-    ├── gpt_handler.py          # GPT summarization module (key here!)
-    └── report_generator.py     # Generates final reports
-
+    ├── file_handler.py
+    ├── data_analyzer.py
+    ├── gpt_handler.py
+    ├── report_generator.py
 ```
 
 
-⚡ GPU Acceleration
 
-If your device supports CUDA, the app will automatically use GPU for model inference.
+---
 
-On start:
+📜 License
 
-```bash
-Device set to use cuda:0
-```
-
-To improve performance: avoid analyzing large files sequentially — batch inputs where possible.
+This project is licensed under the Apache License 2.0 © 2025 Aditya Vishwakarma.
 
 
 
-✅ To-Do / Enhancements
- Export reports in PDF format
 
- Excel multi-sheet support
+---
 
- File-type icons and improved UI
+👨‍💻 Author
 
- Chat-style summarization
+Aditya Vishwakarma
 
-👤 Author
-Built with ❤️ Aditya Vishwakarma
 
+---
+
+💡 Tips
+
+📌 For best performance, install CUDA-compatible PyTorch if running on a GPU.
+
+
+💬 Feedback and contributions are welcome!
