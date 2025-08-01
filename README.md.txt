@@ -2,7 +2,7 @@
 
 An intelligent, GPU-accelerated Streamlit app that analyzes and summarizes documents using sentiment analysis, classification, automatic charting, and optional GPT-powered summarization.
 
----
+--- 
 
 ## 🚀 Features
 
