@@ -1,28 +1,35 @@
 # modules/gpt_handler.py
-import openai
+import streamlit as st
+from openai import OpenAI
 
-# 🔐 Replace the placeholder string below with your own OpenAI API key
-OPENAI_API_KEY = "REPLACE_ME_WITH_YOUR_API_KEY"
-
-if OPENAI_API_KEY == "REPLACE_ME_WITH_YOUR_API_KEY":
-    print("⚠️ WARNING: Please replace the placeholder API key in gpt_handler.py before using GPT features.")
-
-openai.api_key = OPENAI_API_KEY
+# 🔐 Pull the GitHub API token securely from Streamlit Secrets
+try:
+    GITHUB_TOKEN = st.secrets["GITHUB_TOKEN"]
+    # Initialize the client pointing to GitHub's free endpoint
+    client = OpenAI(
+        base_url="https://models.inference.ai.azure.com",
+        api_key=GITHUB_TOKEN,
+    )
+except Exception:
+    client = None
+    print("⚠️ WARNING: GITHUB_TOKEN not found in Streamlit Secrets.")
 
 def gpt_summary(text):
-    if OPENAI_API_KEY == "REPLACE_ME_WITH_YOUR_API_KEY":
-        return "⚠️ GPT API key not found. Please open `gpt_handler.py` and paste your OpenAI key."
+    if not client:
+        return "⚠️ GPT API key not found. Please add GITHUB_TOKEN to Streamlit secrets."
 
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+        # Using gpt-4o-mini as the fast, high-context replacement for gpt-3.5-turbo
+        response = client.chat.completions.create(
+            model="gpt-4o-mini", 
             messages=[
                 {"role": "system", "content": "You are a helpful assistant that summarizes documents."},
                 {"role": "user", "content": f"Summarize this content:\n{text}"}
             ],
-            max_tokens=300
+            max_tokens=500 # Slightly increased for better summaries
         )
-        return response["choices"][0]["message"]["content"].strip()
+        # Updated syntax for OpenAI v1.0+
+        return response.choices[0].message.content.strip()
 
     except Exception as e:
         return f"❌ GPT Error: {str(e)}"
