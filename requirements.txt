@@ -13,4 +13,4 @@ plotly
 textblob
 transformers
 torch
-
+torchvision
